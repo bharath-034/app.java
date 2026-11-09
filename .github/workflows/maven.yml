@@ -1,33 +1,33 @@
 
-name: Java CI with Maven
+
+name: Maven Build and Test
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        run: mvn -B clean package --file pom.xml
+      - name: Build and Test
+        run: mvn clean verify
 
-      - name: List generated JAR files
-        run: ls -lh target/*.jar
-
-      - name: Upload build artifact
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: maven-build-artifacts
-          path: target/
-          if-no-files-found: error
+          name: maven-jar
+          path: target/*.jar
