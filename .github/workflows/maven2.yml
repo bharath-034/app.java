@@ -15,7 +15,7 @@ jobs:
   test:
     runs-on: self-hosted
     steps:
-     - name: exexute thhe pwd
+     - name: execute the pwd
        run: pwd
-     - name: date
+     - name: command to execute date
        run: date
